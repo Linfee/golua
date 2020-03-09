@@ -1,1 +1,5 @@
-print('hello world')
+function echo()
+    print('hello world')
+end
+
+echo()
