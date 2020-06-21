@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"golua/api"
 	"golua/state"
-	"strings"
 	"testing"
 )
 
 func TestLuaStack(t *testing.T) {
-	ls := state.New()
+	ls := state.New(10, nil)
 	ls.PushBoolean(true)
 	printStack(ls)
 
@@ -39,20 +38,19 @@ func TestLuaStack(t *testing.T) {
 }
 
 func printStack(ls api.LuaState) {
-	fmt.Println(strings.Repeat("=", 80))
 	top := ls.GetTop()
 	for i := 1; i <= top; i++ {
-		switch t := ls.Type(i); t {
+		t := ls.Type(i)
+		switch t {
 		case api.LUA_TBOOLEAN:
 			fmt.Printf("[%t]", ls.ToBoolean(i))
 		case api.LUA_TNUMBER:
 			fmt.Printf("[%g]", ls.ToNumber(i))
 		case api.LUA_TSTRING:
 			fmt.Printf("[%q]", ls.ToString(i))
-		default:
+		default: // other values
 			fmt.Printf("[%s]", ls.TypeName(t))
 		}
 	}
 	fmt.Println()
-
 }

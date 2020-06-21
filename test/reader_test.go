@@ -14,7 +14,7 @@ func TestUnDump(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	proto := binchunk.UnDump(data)
+	proto := binchunk.Undump(data)
 	list(proto)
 }
 
@@ -106,7 +106,7 @@ func printDetail(f *binchunk.Prototype) {
 	fmt.Printf("locals (%d):\n", len(f.LocVars))
 	for i, locVar := range f.LocVars {
 		fmt.Printf("\t%d\t%s\t%d\t%d\n",
-			i, locVar.VarName, locVar.StartPc+1, locVar.EndPC+1)
+			i, locVar.VarName, locVar.StartPC+1, locVar.EndPC+1)
 	}
 
 	fmt.Printf("upvalues (%d):\n", len(f.Upvalues))
